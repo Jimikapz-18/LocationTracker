@@ -1,0 +1,84 @@
+<div class="auth-layout">
+
+  <!-- Brand panel -->
+  <div class="auth-brand">
+    <div class="brand-bg-circles">
+      <div class="bg-circle c1"></div>
+      <div class="bg-circle c2"></div>
+      <div class="bg-circle c3"></div>
+    </div>
+    <div class="brand-content">
+      <div class="brand-logo">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="10" r="3" stroke="#22d3ee" stroke-width="2"/>
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+                stroke="#22d3ee" stroke-width="2" stroke-linejoin="round" fill="rgba(34,211,238,0.06)"/>
+          <circle cx="12" cy="10" r="7" stroke="#22d3ee" stroke-width="0.8"
+                  stroke-dasharray="3 3" opacity="0.35"/>
+        </svg>
+      </div>
+      <h1 class="brand-name">PulseTrack</h1>
+      <p class="brand-tagline">Track your world in real-time</p>
+      <div class="brand-features">
+        <div class="feature-item">
+          <span class="feature-dot"></span>
+          Real-time friend location sharing
+        </div>
+        <div class="feature-item">
+          <span class="feature-dot"></span>
+          Live map with instant updates
+        </div>
+        <div class="feature-item">
+          <span class="feature-dot"></span>
+          Connect and stay close, always
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form panel -->
+  <div class="auth-form-panel">
+    <div class="auth-form-card">
+      <div class="form-header">
+        <h2>Welcome back</h2>
+        <p>Sign in to continue tracking</p>
+      </div>
+
+      <form [formGroup]="loginForm">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input formControlName="email" class="form-input" type="email"
+                 placeholder="you@example.com" autocomplete="email"/>
+          @if(email?.invalid && (email?.touched || email?.dirty)){
+            @if(email?.hasError('required')){
+              <div class="form-error">Email is required</div>
+            }
+            @if(email?.hasError('email')){
+              <div class="form-error">Enter a valid email address</div>
+            }
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input formControlName="password" class="form-input" type="password"
+                 placeholder="Enter your password" autocomplete="current-password"/>
+          @if(password?.invalid && (password?.touched || password?.dirty)){
+            @if(password?.hasError('required')){
+              <div class="form-error">Password is required</div>
+            }
+          }
+        </div>
+
+        <button class="btn-submit" [disabled]="loginForm.invalid" (click)="login()">
+          Sign In
+        </button>
+
+        <div class="form-footer">
+          Don't have an account? <a routerLink="/auth/register">Create one</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

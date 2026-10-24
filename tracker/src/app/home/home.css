@@ -1,0 +1,67 @@
+.app-layout {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.content-area {
+  height: 100vh;
+  margin-left: var(--sidebar-w);
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Hamburger ── */
+.hamburger-btn {
+  display: none;
+  position: fixed;
+  top: 0.875rem;
+  left: 0.875rem;
+  z-index: 201;
+  width: 40px;
+  height: 40px;
+  background: rgba(8, 12, 24, 0.92);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+  transition: background 0.18s, border-color 0.18s;
+  backdrop-filter: blur(8px);
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.18s;
+}
+
+.hamburger-btn:hover {
+  background: var(--accent-cyan-dim);
+  border-color: rgba(34, 211, 238, 0.3);
+}
+
+/* ── Mobile backdrop ── */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.62);
+  z-index: 99;
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .hamburger-btn  { display: flex; }
+  .content-area   { margin-left: 0; }
+}

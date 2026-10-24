@@ -1,0 +1,33 @@
+<div class="page-wrap">
+
+  <div class="page-header">
+    <h2>Friend Requests</h2>
+    <p>People who want to connect with you</p>
+  </div>
+
+  @if (incomingRequests().length > 0) {
+    <div class="card-list">
+      @for (request of incomingRequests(); track request.senderId) {
+        <div class="user-card">
+          <div class="avatar" [style.background]="getAvatarColor(request.senderUserName)">
+            {{ getInitials(request.senderUserName) }}
+          </div>
+          <div>
+            <div class="card-name">{{ request.senderUserName }}</div>
+            <div class="card-meta">{{ request.requestedAt | timeAgo }}</div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-accept" (click)="acceptRequest(request.senderId)">Accept</button>
+            <button class="btn-reject" (click)="rejectRequest(request.senderId)">Reject</button>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <div class="empty-icon">📭</div>
+      <p>No pending friend requests</p>
+    </div>
+  }
+
+</div>

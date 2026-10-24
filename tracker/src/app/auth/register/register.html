@@ -1,0 +1,118 @@
+<div class="auth-layout">
+
+  <!-- Brand panel -->
+  <div class="auth-brand">
+    <div class="brand-bg-circles">
+      <div class="bg-circle c1"></div>
+      <div class="bg-circle c2"></div>
+      <div class="bg-circle c3"></div>
+    </div>
+    <div class="brand-content">
+      <div class="brand-logo">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="10" r="3" stroke="#22d3ee" stroke-width="2"/>
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+                stroke="#22d3ee" stroke-width="2" stroke-linejoin="round" fill="rgba(34,211,238,0.06)"/>
+          <circle cx="12" cy="10" r="7" stroke="#22d3ee" stroke-width="0.8"
+                  stroke-dasharray="3 3" opacity="0.35"/>
+        </svg>
+      </div>
+      <h1 class="brand-name">PulseTrack</h1>
+      <p class="brand-tagline">Track your world in real-time</p>
+      <div class="brand-features">
+        <div class="feature-item">
+          <span class="feature-dot"></span>
+          Create your account in seconds
+        </div>
+        <div class="feature-item">
+          <span class="feature-dot"></span>
+          Share your location with friends
+        </div>
+        <div class="feature-item">
+          <span class="feature-dot"></span>
+          Stay connected, stay safe
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form panel -->
+  <div class="auth-form-panel">
+    <div class="auth-form-card">
+      <div class="form-header">
+        <h2>Create account</h2>
+        <p>Join PulseTrack today — it's free</p>
+      </div>
+
+      <form [formGroup]="registerForm">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input formControlName="name" class="form-input" placeholder="John Doe" autocomplete="name"/>
+          @if(name?.invalid && (name?.touched || name?.dirty)){
+            <div class="form-error">Full name is required</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input formControlName="userName" class="form-input" placeholder="johndoe" autocomplete="username"/>
+          @if(userName?.invalid && (userName?.touched || userName?.dirty)){
+            <div class="form-error">Username is required</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input formControlName="email" class="form-input" type="email"
+                 placeholder="you@example.com" autocomplete="email"/>
+          @if(email?.invalid && (email?.touched || email?.dirty)){
+            @if(email?.hasError('required')){
+              <div class="form-error">Email is required</div>
+            }
+            @if(email?.hasError('email')){
+              <div class="form-error">Enter a valid email address</div>
+            }
+          }
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input formControlName="password" class="form-input" type="password"
+                   placeholder="Min. 6 chars" autocomplete="new-password"/>
+            @if(password?.invalid && (password?.touched || password?.dirty)){
+              @if(password?.hasError('required')){
+                <div class="form-error">Password is required</div>
+              }
+              @if(password?.hasError('minlength')){
+                <div class="form-error">Minimum 6 characters</div>
+              }
+            }
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm</label>
+            <input formControlName="confirmPassword" class="form-input" type="password"
+                   placeholder="Repeat password" autocomplete="new-password"/>
+            @if(confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty)){
+              @if(confirmPassword?.hasError('required')){
+                <div class="form-error">Please confirm</div>
+              }
+              @if(confirmPassword?.hasError('passwordMismatch')){
+                <div class="form-error">Passwords don't match</div>
+              }
+            }
+          </div>
+        </div>
+
+        <button class="btn-submit" [disabled]="registerForm.invalid" (click)="registerUser()">
+          Create Account
+        </button>
+
+        <div class="form-footer">
+          Already have an account? <a routerLink="/auth/login">Sign in</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

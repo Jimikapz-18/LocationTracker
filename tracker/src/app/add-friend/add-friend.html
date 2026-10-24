@@ -1,0 +1,82 @@
+<div class="page-wrap">
+
+  <div class="page-header">
+    <h2>Find Friends</h2>
+    <p>Search by username and send a friend request</p>
+  </div>
+
+  <!-- Search box -->
+  <div class="search-wrap">
+    <span class="search-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    </span>
+    <input class="search-input" [formControl]="searchControl"
+           placeholder="Search by username…" autocomplete="off"/>
+  </div>
+
+  <!-- Results list -->
+  @if (users().length > 0) {
+    <div class="card-list">
+      @for (user of users(); track user.id) {
+        <div class="user-card" (click)="selectUser(user)"
+             [class.selected]="selectedUser()?.id === user.id">
+          <div class="avatar" [style.background]="getAvatarColor(user.userName)">
+            {{ getInitials(user.userName) }}
+          </div>
+          <div>
+            <div class="card-name">{{ user.userName }}</div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-view">View</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  @if (searched() && users().length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">🔍</div>
+      <p>No users found for that username</p>
+    </div>
+  }
+
+  <!-- Selected user detail card -->
+  @let user = selectedUser();
+  @if (user) {
+    <div class="detail-card">
+      <div class="detail-avatar" [style.background]="getAvatarColor(user.userName)">
+        {{ getInitials(user.userName) }}
+      </div>
+      <div>
+        <div class="detail-name">{{ user.userName }}</div>
+        @let status = selectedUserStatus();
+        @if (status) {
+          @if (status.isFriend) {
+            <span class="status-badge friends">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+              Friends
+            </span>
+          } @else if (status.isReceivedRequestFromUser) {
+            <div class="card-actions">
+              <button class="btn-accept" (click)="acceptFriendRequest()">Accept</button>
+              <button class="btn-reject" (click)="rejectFriendRequest()">Reject</button>
+            </div>
+          } @else if (status.isSentRequestToUser) {
+            <button class="btn-cancel" (click)="cancelFriendRequest()">Cancel Request</button>
+          } @else {
+            <button class="btn-add" (click)="sendFriendRequest()">Add Friend</button>
+          }
+        }
+      </div>
+    </div>
+  }
+
+</div>

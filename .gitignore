@@ -1,0 +1,26 @@
+# .NET build output and local IDE state
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+
+# Local application configuration and secrets
+LocationTracker/appsettings.json
+LocationTracker/appsettings.Development.json
+LocationTracker/secrets.json
+.env
+.env.*
+!.env.example
+
+# Node and Angular output
+tracker/node_modules/
+tracker/dist/
+tracker/.angular/
+tracker/coverage/
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

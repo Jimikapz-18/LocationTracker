@@ -1,0 +1,21 @@
+<div class="app-layout">
+
+  <!-- Mobile hamburger -->
+  <button class="hamburger-btn" (click)="toggleSidebar()" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- Mobile backdrop -->
+  @if (sidebarOpen()) {
+    <div class="sidebar-backdrop" (click)="closeSidebar()"></div>
+  }
+
+  <app-sidebar [open]="sidebarOpen()" (closeRequest)="closeSidebar()"></app-sidebar>
+
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>
